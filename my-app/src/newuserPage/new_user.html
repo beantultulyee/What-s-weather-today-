@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        .container { width: 300px; margin: auto; }
+        input { width: 100%; padding: 8px; margin: 8px 0; }
+        button { width: 100%; padding: 10px; background: skyblue; color: white; border: none; }
+    </style>
+    <script>
+    /*    function validateForm() {
+            const pw = document.getElementById("password").value;
+            const pw2 = document.getElementById("password2").value;
+
+            if (pw !== pw2) {
+                alert("비밀번호가 일치하지 않습니다!");
+                return false;  // 제출x
+            }
+            return true; // 제출o
+        } */
+    </script> 
+</head>
+<body>
+
+<div class="container">
+    <h2>회원가입</h2>
+    <form method="post" action="/register"> 
+        <!-- 서버(DB)로 넘길 데이터 -->
+        <input type="text" name="user-id" placeholder="아이디" required>
+
+        <input type="password" name="password" placeholder="비밀번호" required>
+
+        <input type="password" name="password_check" placeholder="비밀번호 확인" required>
+
+        <button type="submit">가입하기</button>
+    </form>
+</div>
+
+</body>
+</html>
