@@ -2,7 +2,285 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>캘린더 웹서버</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's the weather today?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column; 
+        }
+
+        section, aside {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        #login-area {
+            display: flex;
+            align-items: center; 
+            gap: 15px; 
+            padding: 10px 20px;
+            background-color: #f8f8f8;
+            border-bottom: 2px solid #ccc;
+            border-radius: 0;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            box-shadow: none;
+        }
+        #login-area h3 {
+            margin: 0;
+        }
+        #login-area input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        #login-form-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #signup-link {
+            font-size: 0.8em; 
+            margin-left: auto; 
+        }
+        #signup-link a {
+            color: #555;
+            text-decoration: none; 
+        }
+        #signup-link a:hover {
+            text-decoration: underline;
+            color: #007bff;
+        }
+        
+        #site-title {
+            text-align: center;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center
+        }
+        #site-title h1 {
+            font-size: 2.5em; 
+            color: #6495ED; 
+            margin: 0; 
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        #main-content {
+            flex-grow: 1; 
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            grid-template-rows: 1fr; 
+            gap: 20px;
+            padding: 20px;
+        }
+
+        #right-sidebar {
+            display: grid;
+            grid-template-rows: 2fr 1fr; 
+            gap: 20px;
+        }
+        
+        #month-selector {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .month-item {
+            cursor: pointer; 
+            padding: 3px 6px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .month-item.active {
+            font-weight: bold;
+            color: #007bff; 
+            border-bottom: 2px solid #007bff;
+        }
+
+        #calendar-display table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        #calendar-display th, #calendar-display td {
+            border: 1px solid #eee;
+            text-align: center;
+            padding: 10px 5px;
+            height: 50px; 
+        }
+        .day-of-week {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+
+        @media (max-width: 768px) {
+            #main-content {
+                grid-template-columns: 1fr; 
+                grid-template-rows: auto; 
+                padding: 10px;
+            }
+            #right-sidebar {
+                grid-template-rows: auto; 
+                display: flex; 
+                flex-direction: column;
+            }
+            #login-area {
+                flex-wrap: wrap; 
+                gap: 10px;
+            }
+            #login-form-group {
+                flex-wrap: wrap; 
+            }
+            #signup-link {
+                margin-left: 0;
+                width: 100%; 
+                text-align: right;
+            }
+        }
+    </style>
+</head>
 <body>
-    <h1>메인 페이지</h1>
+
+    <header id="login-area">
+        <h3>🔑 로그인</h3>
+
+        <form id="login-form-group">
+            <label for="username">아이디:</label>
+            <input type="text" id="username" placeholder="아이디" required>
+            
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" placeholder="비밀번호" required>
+            
+            <button type="submit">로그인</button>
+        </form>
+        
+        <div id="signup-link">
+            <a href="signup.html">회원가입</a>
+        </div>
+    </header>
+
+    <div id="site-title">
+        <h1>What's the weather today?</h1>
+    </div>
+    
+    <main id="main-content">
+    
+        <section id="calendar-area">
+            <h2>🗓️ 캘린더</h2>
+            
+            <div id="month-selector">
+                <span class="month-item" data-month="1">01월</span>
+                <span class="month-item" data-month="2">02월</span>
+                <span class="month-item" data-month="3">03월</span>
+                <span class="month-item" data-month="4">04월</span>
+                <span class="month-item" data-month="5">05월</span>
+                <span class="month-item" data-month="6">06월</span>
+                <span class="month-item" data-month="7">07월</span>
+                <span class="month-item" data-month="8">08월</span>
+                <span class="month-item" data-month="9">09월</span>
+                <span class="month-item active" data-month="10">10월</span>
+                <span class="month-item" data-month="11">11월</span>
+                <span class="month-item" data-month="12">12월</span>
+            </div>
+
+            <div id="calendar-display">
+                <p style="text-align: center; color: #999;">월을 선택하면 달력이 표시됩니다.</p>
+            </div>
+        </section>
+
+        <div id="right-sidebar">
+            
+            <section id="schedule-area">
+                <h2>📝 오늘(11/20)의 일정</h2>
+                <ul id="daily-schedule-list">
+                    <li>오전 10:00: 팀 회의</li>
+                    <li>오후 02:00: 고객사 미팅 준비</li>
+                </ul>
+                <button>일정 추가</button>
+            </section>
+
+            <section id="weather-outfit-area">
+                <h2>☀️ 날씨 & 옷차림</h2>
+                <div id="weather-info">
+                    <p><strong>현재 기온:</strong> 18°C</p>
+                    <p><strong>옷차림 추천:</strong> 가벼운 재킷이나 가디건</p>
+                </div>
+            </section>
+            
+        </div>
+    </main>
+    
+    <script>
+        const monthSelector = document.getElementById('month-selector');
+        const calendarDisplay = document.getElementById('calendar-display');
+        const monthItems = document.querySelectorAll('.month-item');
+
+        // 예시 달력 데이터
+        const mockCalendarData = {
+            10: `<table>
+                    <thead>
+                        <tr class="day-of-week"><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td></td><td></td><td>01</td><td>02</td><td>03</td><td>04</td><td>05</td></tr>
+                        <tr><td>06</td><td>07</td><td>08</td><td>09</td><td>10</td><td>11</td><td>12</td></tr>
+                        <tr><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td><td>19</td></tr>
+                        <tr><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td></tr>
+                        <tr><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td><td></td><td></td></tr>
+                    </tbody>
+                </table>`,
+            11: `<table>
+                    <thead>
+                        <tr class="day-of-week"><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td></td><td></td><td></td><td></td><td></td><td>01</td><td>02</td></tr>
+                        <tr><td>03</td><td>04</td><td>05</td><td>06</td><td>07</td><td>08</td><td>09</td></tr>
+                        <tr><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr>
+                        <tr><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr>
+                        <tr><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr>
+                    </tbody>
+                </table>`,
+        };
+
+        function renderCalendar(month) {
+            monthItems.forEach(item => item.classList.remove('active'));
+
+        
+            const selectedItem = document.querySelector(`.month-item[data-month="${month}"]`);
+            if (selectedItem) {
+                selectedItem.classList.add('active');
+            }
+
+            if (mockCalendarData[month]) {
+                calendarDisplay.innerHTML = mockCalendarData[month];
+            } else {
+                calendarDisplay.innerHTML = `<p style="text-align: center; color: #999;">${month}월 달력 데이터가 없습니다.</p>`;
+            }
+        }
+
+        monthSelector.addEventListener('click', (event) => {
+            const monthElement = event.target.closest('.month-item');
+            if (monthElement) {
+                const month = monthElement.dataset.month;
+                renderCalendar(month);
+            }
+        });
+
+        renderCalendar(11); 
+    </script>
+    
+</body>
 </html>
