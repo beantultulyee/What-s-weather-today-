@@ -1,0 +1,121 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; 
+}
+section, aside {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+#site-title {
+    text-align: center;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+#site-title h1 {
+    font-size: 2.5em; 
+    color: #6495ED; 
+    margin: 0; 
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#main-content {
+    flex-grow: 1; 
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 20px;
+    padding: 20px;
+}
+
+#right-sidebar {
+    display: grid;
+    grid-template-rows: 2fr 1fr; 
+    gap: 20px;
+}
+
+#month-selector {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.month-item {
+    cursor: pointer; 
+    padding: 3px 6px;
+    font-size: 0.9em;
+    color: #666;
+}
+.month-item.active {
+    font-weight: bold;
+    color: #007bff; 
+    border-bottom: 2px solid #007bff;
+}
+
+#calendar-display table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#calendar-display th, #calendar-display td {
+    border: 1px solid #eee;
+    text-align: center;
+    padding: 10px 5px;
+    height: 50px; 
+}
+.day-of-week {
+    font-weight: bold;
+    background-color: #f0f0f0;
+}
+
+#schedule-area ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+#schedule-area li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #ddd;
+}
+#schedule-area button {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#weather-outfit-area {
+    background-color: #e6f7ff;
+    border: 1px solid #b3e0ff;
+    text-align: center;
+}
+#weather-outfit-area h2 {
+    color: #1e88e5; 
+}
+#weather-info p {
+    font-size: 1.1em;
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    #main-content {
+        grid-template-columns: 1fr; 
+        grid-template-rows: auto; 
+        padding: 10px;
+    }
+    #right-sidebar {
+        grid-template-rows: auto; 
+        display: flex; 
+        flex-direction: column;
+    }
+}
