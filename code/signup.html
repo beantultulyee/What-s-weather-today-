@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title >회원가입</title>
+    <style>
+        body { width: 400px; margin-left: 35%; margin-top: 200px; font-family: Arial; padding: 30px; border: gray solid 1px ;border-radius: 10px;}
+        .container { width: 300px; margin: auto; }
+        input { width: 100%; padding: 8px; margin: 8px 0; border-radius: 10px;}
+        button { width: 107%; margin-bottom: 30px; padding: 10px; background: skyblue; color: white; border: none; border-radius: 15px;}
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>회원가입</h2>
+    <form method="post" action="register.php"> 
+        
+        <input type="text" name="user-id" placeholder="아이디" required>
+
+        <input type="password" name="password" placeholder="비밀번호" required>
+
+        <button type="submit" style=" margin-top: 10px;">가입하기</button>
+    </form>
+</div>
+</body>
+</html>
